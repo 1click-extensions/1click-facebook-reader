@@ -15,6 +15,7 @@ var cssByElements = {
   "date and privacy" : "._5pcp",
   "Wall details column" : ".fbTimelineTwoColumn",
   "left column on feed page" : ".home_right_column",
+  "left column on group page" : ".pagelet",
   "side menu" : ".UFIAddComment",
 
 }, cssStr = '';
@@ -26,6 +27,7 @@ function setDefaults(){
   localStorage.setItem('add comment form', 1);
   localStorage.setItem('date and privacy', 1);
   localStorage.setItem('left column on feed page', 0);
+  localStorage.setItem('left column on group page', 0);
   localStorage.setItem("Wall details column", 0);
   localStorage.setItem("side menu", 0);
   localStorage.setItem("date and privacy", 0);
@@ -122,9 +124,7 @@ function injectToTab(tab, onClick){
          chrome.tabs.executeScript(tab.id, {file:"js/on-toggle.js"}, function(){
            chrome.tabs.executeScript(tab.id, {code:"chooseMessage(1)"});
          });
-       }
-      }
-      
+       }      
     }
     else{
       chrome.pageAction.setIcon({tabId: tab.id,path:  chrome.runtime.getURL('images/browseraction_off.png')});
