@@ -1,0 +1,20 @@
+.commentable_item ._sa_, 
+/*like/sahre actions*/
+.home_right_column, 
+/*ads column*/
+.UFILikeSentence,
+/*like count*/
+.UFIShareRow,
+/*share count*/
+.fbTimelineTwoColumn,
+/*user's wall details column*/
+.UFIAddComment,
+/*add comment*/
+#leftCol,
+/*start menu*/
+._5pcp
+/* date of post*/
+{
+    display: none!important;
+}
+
