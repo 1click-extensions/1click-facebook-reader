@@ -12,7 +12,14 @@ function fireSettings(){
                 $('body').addClass('wide').append($('<div class="grant-perm">' + chrome.i18n.getMessage('request_permission_explain') + '<button type="button" class="grant-permission-butt">' + chrome.i18n.getMessage('request_permission_button') + '</button></div>'))
                 $('.grant-permission-butt').click(function(){
                 requestPermissions(function(){
-                    addSettings();
+                    $('.grant-perm').remove();
+                    $('body').append($('<div>').text( chrome.i18n.getMessage('reader_ready')));
+                    setTimeout(function(){
+                        window.close();
+                    },3000);
+                    //$('body *').show();
+                    //addSettings();
+                    toggleReader(true);
                     });
                 });
             }
@@ -63,6 +70,7 @@ function addSettings(){
 
 function requestPermissions(callback){
     chrome.permissions.request({ origins: ['https://*.facebook.com/*']},function(status){
+        console.log('stattys', status)
     if(status){
         callback();
     }

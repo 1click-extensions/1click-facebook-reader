@@ -1,5 +1,5 @@
 function toggleReader(){
-    console.log('toggle!!!!');
+    //console.log('toggle!!!!');
     chrome.runtime.sendMessage({action: "toggleReader"});    
 }
 function denayLastRequest(){

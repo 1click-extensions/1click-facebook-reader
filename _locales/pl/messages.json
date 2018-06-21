@@ -9,6 +9,7 @@
   "stop_reader": {"message": "Stop reader" },
   "reader_off": {"message": "Reader is on" },
   "reader_on": {"message": "Reader is off" },
+  "reader_ready": {"message": "Reader is ready" },
   "settings_saved": {"message": "Settings saved successfully" },
   "ext_desc": {"message": "Read light version of facebook - all contnet, less unnecessary widgets" },
   "ext_name": {"message": "1click Facebook Reader" }

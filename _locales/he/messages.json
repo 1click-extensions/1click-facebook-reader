@@ -9,6 +9,7 @@
   "stop_reader": {"message": "בטל קורא פייסבוק" },
   "reader_off": {"message": "קורא פייסבוק פעיל" },
   "reader_on": {"message": "קורא פייסבוק מבוטל" },
+  "reader_ready": {"message": "קורא הפייסבוק מוכן" },
   "settings_saved": {"message": "הגדרות נשמרו בהצלחה" },
   "ext_desc": {"message": "קןרא פייסבוק - קרא את כל התוכן, ראה פחות חלקים לא הכרחיים" },
   "ext_name": {"message": "קורא פייסבוק בלחיצה אחת" }
