@@ -1,7 +1,15 @@
 {
-  "browser_action": {"message": "הוסף אימוג'י" },
-  "message": {"message": "כעת אתה יכול להדביק את האימוג'י בכל מקום" },
-  "ext_desc": {"message": "השתמש באימוג'ים בכל מקום ברשת" },
-  "ext_name": {"message": "אמוג'י בכל מקום בלחיצה אחת" }
+  "browser_action": {"message": "קורא פייסבוק" },
+  "advanced_settings": {"message": "הגדרות מתקדמות" },
+  "custom_settings": {"message": "מה להסתיר" },
+  "save": {"message": "שמור" },
+  "request_permission": {"message": "כדי להפעיל את פייסבוק לקריאה קלה, אנו זקוקים להרשאות שיאפשרו לשנות את עיצוב הדף. אנא אשר הרשאות אלו" },
+  "start_reader": {"message": "הפעל קורא פייסבוק" },
+  "stop_reader": {"message": "בטל קורא פייסבוק" },
+  "reader_off": {"message": "קורא פייסבוק פעיל" },
+  "reader_on": {"message": "קורא פייסבוק מבוטל" },
+  "settings_saved": {"message": "הגדרות נשמרו בהצלחה" },
+  "ext_desc": {"message": "קןרא פייסבוק - קרא את כל התוכן, ראה פחות חלקים לא הכרחיים" },
+  "ext_name": {"message": "קורא פייסבוק בלחיצה אחת" }
 }
 

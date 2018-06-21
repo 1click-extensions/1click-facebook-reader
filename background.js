@@ -70,7 +70,14 @@ chrome.runtime.onMessage.addListener(function (data, sender, callback) {
 function toggleReader(){
   localStorage.setItem('readerOn',Number(!getReaderState()));
   injectAllTabs(true);
-  togglePageActionIcon();
+  if(getReaderState()){
+    chrome.browserAction.setIcon('images/browseraction.png');
+    chrome.browserAction.setTitle(chrome.i18n.getMessage("sop_reader"));
+  }
+  else{
+    chrome.browserAction.setIcon('images/browseraction_off.png');
+    chrome.browserAction.setTitle(chrome.i18n.getMessage("start_reader"));
+  }
   waitWithToggle = null;
 }
 
@@ -115,8 +122,7 @@ function injectToTab(tab, onClick){
       },700);
     }
     if(getReaderState()){
-      chrome.pageAction.setIcon({tabId: tab.id,path:  chrome.runtime.getURL('images/browseraction.png')});
-      chrome.pageAction.setTitle({tabId: tab.id,title:chrome.i18n.getMessage("stop_reader")});
+      
       chrome.tabs.insertCSS(tab.id, {code:cssStr});
       chrome.tabs.executeScript(tab.id, {code:"document.body.classList.add('reader-on')"});
       //add message just when page action clicked
@@ -127,8 +133,7 @@ function injectToTab(tab, onClick){
        }      
     }
     else{
-      chrome.pageAction.setIcon({tabId: tab.id,path:  chrome.runtime.getURL('images/browseraction_off.png')});
-      chrome.pageAction.setTitle({tabId: tab.id,title:chrome.i18n.getMessage("start_reader")});
+      
       chrome.tabs.executeScript(tab.id, {code:"document.body.classList.remove('reader-on')"});
       //add message just when page action clicked
       if(tab.active && onClick){
@@ -154,7 +159,9 @@ function injectToTab(tab, onClick){
 //   );
 // })
 function changePopup(tab){
+  console.log(tab.url);
   if(isFacebook(tab.url)){
+    console.log(tab.id);
     chrome.pageAction.show(tab.id);
   }
   
@@ -179,6 +186,7 @@ chrome.tabs.onCreated.addListener(function(tab){
   changePopup(tab);
 });
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+  console.log(tab);
   injectToTab(tab, false);
   changePopup(tab);
 });
