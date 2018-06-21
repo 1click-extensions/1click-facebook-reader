@@ -8,15 +8,14 @@ if (!localStorage.created) {
 }
 
 var cssByElements = {
-  
   "like and share actions" : ".commentable_item ._sa_",
-  "left column on feed page" : ".home_right_column",
   "likes counter" : ".UFILikeSentence",
   "shares counter" : ".UFIShareRow",
-  "user's wall details column" : ".fbTimelineTwoColumn",
   "add comment form" : ".UFIAddComment",
-  "side menu" : ".UFIAddComment",
   "date and privacy" : "._5pcp",
+  "Wall details column" : ".fbTimelineTwoColumn",
+  "left column on feed page" : ".home_right_column",
+  "side menu" : ".UFIAddComment",
 
 }, cssStr = '';
 
@@ -27,17 +26,16 @@ function setDefaults(){
   localStorage.setItem('add comment form', 1);
   localStorage.setItem('date and privacy', 1);
   localStorage.setItem('left column on feed page', 0);
-  localStorage.setItem("user's wall details column", 0);
+  localStorage.setItem("Wall details column", 0);
   localStorage.setItem("side menu", 0);
   localStorage.setItem("date and privacy", 0);
   setCssBySettings();
 }
 setDefaults();
-
+var waitWithToggle;
 chrome.runtime.onMessage.addListener(function (data, sender, callback) {
   console.log(data)
   if("getSettings" == data.action ){
-    
     callback(getSettings());
   }
   if("setSettings" == data.action ){
@@ -47,24 +45,39 @@ chrome.runtime.onMessage.addListener(function (data, sender, callback) {
       localStorage.setItem(ind, data.settings[ind]);
     }
     setCssBySettings();
+    callback(true);
   }
   if("toggleReader" == data.action ){
-    localStorage.setItem('readerOn',Number(!getReaderState()));
-    injectAllTabs();
-    toggleBrowsericon();
+    waitWithToggle = setTimeout(toggleReader, 1100);
+    setTimeout(function(){
+        localStorage.setItem('usedAlready',1);
+    },10000);
+  }
+  if("denayLastRequest" == data.action ){
+    //console.log(waitWithToggle,'denayLastRequest')
+    if(waitWithToggle){
+      
+      clearTimeout(waitWithToggle);
+      waitWithToggle = null;
+    }
+
   }
   
 });
 
-function toggleBrowsericon(){
-  if(getReaderState()){
-    chrome.browserAction.setIcon({path:  chrome.runtime.getURL('images/browseraction.png')});
-    chrome.browserAction.setTitle({title:chrome.i18n.getMessage("stop_reader")});
-  }
-  else{
-    chrome.browserAction.setIcon({path:  chrome.runtime.getURL('images/browseraction_off.png')});
-    chrome.browserAction.setTitle({title:chrome.i18n.getMessage("start_reader")});
-  }
+function toggleReader(){
+  localStorage.setItem('readerOn',Number(!getReaderState()));
+  injectAllTabs(true);
+  togglePageActionIcon();
+  waitWithToggle = null;
+}
+
+function togglePageActionIcon(){
+  // chrome.tabs.query( { active: true, currentWindow: true }, function(tabs){
+  //   //console.log(tabs[0]);
+  //   injectJsCurrentTab(tabs[0]);
+  // });
+  
 }
 function getReaderState(){
   return Number(localStorage.getItem('readerOn'));
@@ -89,35 +102,90 @@ function setCssBySettings(){
   cssStr = css.join(',') + "{display:none!important;}"
 }
 
-function injectToTab(tab){
+function injectToTab(tab, onClick){
   //console.log(tab)
-  if(/https?:\/\/.+\.facebook.com/.test(tab.url)){
-    //console.log('inject to ' + tab.url)
+  if(isFacebook(tab.url)){
+    //console.log('inject to ' , onClick)
+    if(tab.active && localStorage.getItem('usedAlready')){
+        //ensure tab opend
+      setTimeout(function(){
+        injectJsCurrentTab();
+      },700);
+    }
     if(getReaderState()){
+      chrome.pageAction.setIcon({tabId: tab.id,path:  chrome.runtime.getURL('images/browseraction.png')});
+      chrome.pageAction.setTitle({tabId: tab.id,title:chrome.i18n.getMessage("stop_reader")});
       chrome.tabs.insertCSS(tab.id, {code:cssStr});
       chrome.tabs.executeScript(tab.id, {code:"document.body.classList.add('reader-on')"});
+      //add message just when page action clicked
+      if(tab.active && onClick){
+         chrome.tabs.executeScript(tab.id, {file:"js/on-toggle.js"}, function(){
+           chrome.tabs.executeScript(tab.id, {code:"chooseMessage(1)"});
+         });
+       }
+      }
+      
     }
     else{
+      chrome.pageAction.setIcon({tabId: tab.id,path:  chrome.runtime.getURL('images/browseraction_off.png')});
+      chrome.pageAction.setTitle({tabId: tab.id,title:chrome.i18n.getMessage("start_reader")});
       chrome.tabs.executeScript(tab.id, {code:"document.body.classList.remove('reader-on')"});
+      //add message just when page action clicked
+      if(tab.active && onClick){
+        chrome.tabs.executeScript(tab.id, {file:"js/on-toggle.js"}, function(){
+          chrome.tabs.executeScript(tab.id, {code:"chooseMessage(0)"});
+        });
+      }  
     }
   }
 }
-function injectAllTabs(){
+
+// chrome.pageAction.onClicked.addListener(function(tab){
+//   console.log(tab)
+//   chrome.pageAction.setPopup({
+//     tabId: tab.id,
+//     popup : '<html><body>sdsdsdfsdf</body></html>'
+//   });
+//   chrome.pageAction.getPopup(
+//      tab.id,
+//     function(str){
+//       console.log(str);
+//     }
+//   );
+// })
+function changePopup(tab){
+  if(isFacebook(tab.url)){
+    chrome.pageAction.show(tab.id);
+  }
+  
+}
+function injectAllTabs(onClick){
   chrome.tabs.query({currentWindow: false}, function(tabs) {
     tabs.forEach(function(tab) {
       //console.log(tab);
-      injectToTab(tab);
+      changePopup(tab);
+      injectToTab(tab, onClick);
     });
   });
   chrome.tabs.query({currentWindow: true}, function(tabs) {
     tabs.forEach(function(tab) {
-      injectToTab(tab);
+      changePopup(tab);
+      injectToTab(tab, onClick);
      
     });
   });
-chrome.tabs.onCreated.addListener(injectToTab);
+chrome.tabs.onCreated.addListener(function(tab){
+  injectToTab(tab, false);
+  changePopup(tab);
+});
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-  injectToTab(tab);
+  injectToTab(tab, false);
+  changePopup(tab);
 });
 }
+injectAllTabs();
 
+
+function isFacebook(url){
+  return /https?:\/\/.+\.facebook.com/.test(url);
+}

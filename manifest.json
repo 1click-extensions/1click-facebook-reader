@@ -13,7 +13,7 @@
       "scripts": ["js/rank-listener.js","background.js"],
       "persistent": false
     },
-    "browser_action":{
+    "page_action":{
       "default_icon": "images/browseraction_off.png",
       "default_title": "__MSG_start_reader__",
       "default_popup" : "pages/popup.html"

@@ -6,6 +6,9 @@
   "request_permission": {"message": "To enable facebook reader we nedd to add syle to facebook. Please grant us this permission" },
   "start_reader": {"message": "Start reader" },
   "stop_reader": {"message": "Stop reader" },
+  "reader_off": {"message": "Reader is on" },
+  "reader_on": {"message": "Reader is off" },
+  "settings_saved": {"message": "Settings saved successfully" },
   "ext_desc": {"message": "Use emojies everywhere on web" },
   "ext_name": {"message": "1click Emoji Everywhere" }
 }

@@ -7,8 +7,24 @@
   body.wide{
     width:250px;
   }
+  h3#settings-title {
+    font-size: 20px;
+    margin: 15px 0;
+}
+h5#settings-sub-title {
+    font-size: 16px;
+    margin: 9px 0;
+}
+label{
+  font-size: 16px;
+}
+.saved-message {
+    padding: 10px 4px;
+    font-size: 14px;
+}
   </style>
-  <link fref="../css/prettyCheckable.css" rel="stylesheet"></link>
+  <!-- <link href="../css/prettyCheckable.css" rel="stylesheet"></link> -->
+  <link type="text/css" rel="stylesheet" href="../css/prettyCheckable.css"/>
   <script src="/js/popup-on-open.js"></script>
 </head>
 <body class="popup-box" >
@@ -17,10 +33,10 @@
   <h5 id="settings-sub-title"></h5>
   <div id="settings"></div>
   <button type="button" id="save"></button>
+  <script src="/js/popup-settings.js"></script>
   <script src="/js/popup-on-open.js"></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/prettyCheckable.min.js"></script>
-  <script src="/js/popup-settings.js"></script>
 
 
 </body>
