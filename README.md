@@ -1,6 +1,42 @@
-# <a href="https://1ce.org/1click-facebook-reader">1CE - </a>
+# <a href="https://1ce.org/1click-facebook-reader">1CE - 1Click Facebook Reader</a>
+
+The fastest and smartest way to read facebook without background noises.
+This extension  is not related to Facebook company at any way.
 
 
+This extension is an open-source 📰 extension. What is it mean for you:
+
+
+☑ It's mean it's safe. Everyone can inspect the source code.
+☑ It's mean that if you're are a developer or intern your more than welcome to contribute code.
+
+This extension is another extension of 1ce. Our mission is to advance open-source extensions.
+Visit our website to learn more, and be part of the community: https://1ce.org
+
+
+If you have a question, visit the FAQ section on our website: https://1ce.org
+
+Usage Guide:
+
+1. Install the extension (Click on the "Add to Chrome")
+2. Click on the extension icon.
+3. Click on the permission request and grant the permissions.
+4. That's it, the reader is working.
+5. to toggle reader mode on and off, click again on the extension icon in any facebook tab.
+6. For advanced settings, double click on the extension icon.
+
+
+For more instruction visit the website: https://1ce.org
+
+
+Permissions explain:
+
+We need permission to facebook pages to remove unnecessary parts of the page. no contnet would be remove or modify.
+We don't use this permission to anything else.
+
+Data Usage:
+
+We do not record any of your data usage. Everything stay private on your machine, until your decide you want to share it. 
 
 ---
 
@@ -32,7 +68,7 @@
 
 ## Installation
 
-The easiet way to install the plugin, is going to [1CE -  website](https://1ce.org/1click-facebook-reader), and then add it to chrome.
+The easiet way to install the plugin, is going to [1CE - 1Click Facebook Reader website](https://1ce.org/1click-facebook-reader), and then add it to chrome.
 
 ## Developing
 
