@@ -1,7 +1,7 @@
 {
   "browser_action": {"message": "Use emojies" },
   "advanced_settings": {"message": "Advanced settings" },
-  "custom_settings": {"message": "Custom settings what to hide" },
+  "custom_settings": {"message": "What to hide" },
   "save": {"message": "Save" },
   "request_permission": {"message": "To enable facebook reader we nedd to add syle to facebook. Please grant us this permission" },
   "start_reader": {"message": "Start reader" },

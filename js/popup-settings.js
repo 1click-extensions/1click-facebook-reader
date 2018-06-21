@@ -12,26 +12,30 @@ chrome.permissions.contains({
             requestPermissions(function(){
                 addSettings()
                 });
-            })
+            });
         }
     });
 
 var settings = {}
 function addSettings(){
     chrome.runtime.sendMessage({action:"getSettings"}, function(settings){
-        console.log(settings);
+        //console.log(settings);
         $('body').addClass('wide');
         
         $('#settings-title').text( chrome.i18n.getMessage('advanced_settings'));
         $('#settings-sub-title').text( chrome.i18n.getMessage('custom_settings'));
         $('#settings').empty();
         for(var ind of Object.keys(settings)){
-            $('#settings').append($('<div class="setting setting-' + ind + '">' + ind + ':<input type="checkbox" name="' + ind + '" ' + (settings[ind] ? "checked='cecked'" : '' )+ '/></div>'));
+            var indReplaced = ind.replace(/\s/g, '_');
+            $('#settings').append($('<div class="setting setting-' + ind + '"><input type="checkbox" name="' + indReplaced + '" ' + (settings[ind] ? "checked='cecked'" : '' )+ '/> ' +  ind + '</div>'));
         }
+        // $('#settings :checkbox').each(function(){
+        //     $(this).prettyCheckable();
+        // });
         $('#save').text( chrome.i18n.getMessage('save')).unbind('click').bind('click', function(){
             var settings = {};
             $('#settings :checkbox').each(function(){
-                settings[$(this).attr('name')] = Number($(this).is(':checked'));
+                settings[$(this).attr('name').replace(/_/g,' ')] = Number($(this).is(':checked'));
             });
             console.log(settings);
             chrome.runtime.sendMessage({action:"setSettings",settings:settings});
