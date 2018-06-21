@@ -1,15 +1,16 @@
 {
-  "browser_action": {"message": "Use emojies" },
+  "browser_action": {"message": "Facebook reader" },
   "advanced_settings": {"message": "Advanced settings" },
   "custom_settings": {"message": "What to hide" },
   "save": {"message": "Save" },
-  "request_permission": {"message": "To enable facebook reader we nedd to add syle to facebook. Please grant us this permission" },
+  "request_permission_explain": {"message": "To enable facebook reader we need to add style to facebook." },
+  "request_permission_button": {"message": "Please grant us those permission" },
   "start_reader": {"message": "Start reader" },
   "stop_reader": {"message": "Stop reader" },
   "reader_off": {"message": "Reader is on" },
   "reader_on": {"message": "Reader is off" },
   "settings_saved": {"message": "Settings saved successfully" },
-  "ext_desc": {"message": "Use emojies everywhere on web" },
-  "ext_name": {"message": "1click Emoji Everywhere" }
+  "ext_desc": {"message": "Read light version of facebook - all contnet, less unnecessary widgets" },
+  "ext_name": {"message": "1click Facebook Reader" }
 }
 

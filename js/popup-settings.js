@@ -8,10 +8,11 @@ function fireSettings(){
                  addSettings();
             }
             else{
-                $('body').append($('<div class="grant-perm"><button type="butto" class="grant-permission-butt">' + chrome.i18n.getMessage('request_permission')  + '</button></div>'))
+                $('body *').hide();
+                $('body').addClass('wide').append($('<div class="grant-perm">' + chrome.i18n.getMessage('request_permission_explain') + '<button type="button" class="grant-permission-butt">' + chrome.i18n.getMessage('request_permission_button') + '</button></div>'))
                 $('.grant-permission-butt').click(function(){
                 requestPermissions(function(){
-                    addSettings()
+                    addSettings();
                     });
                 });
             }
@@ -19,7 +20,9 @@ function fireSettings(){
 }
 
 var settings = {}
-fireSettings();
+$(function(){
+    fireSettings();
+})
 function addSettings(){
     chrome.runtime.sendMessage({action:"getSettings"}, function(settings){
         //console.log(settings);
