@@ -36,7 +36,7 @@ function setDefaults(){
 setDefaults();
 var waitWithToggle;
 chrome.runtime.onMessage.addListener(function (data, sender, callback) {
-  console.log(data)
+  //console.log(data)
   if("getSettings" == data.action ){
     callback(getSettings());
   }
