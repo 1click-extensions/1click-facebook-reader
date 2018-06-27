@@ -3,7 +3,7 @@ function toggleReader(){
     chrome.runtime.sendMessage({action: "toggleReader"});    
 }
 function denayLastRequest(){
-    console.log('denayLastRequest!!!!');
+    //console.log('denayLastRequest!!!!');
     chrome.runtime.sendMessage({action: "denayLastRequest"});    
 }
 

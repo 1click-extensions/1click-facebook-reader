@@ -8,15 +8,14 @@ if (!localStorage.created) {
 }
 
 var cssByElements = {
-  "like and share actions" : ".commentable_item ._sa_",
-  "likes counter" : ".UFILikeSentence",
-  "shares counter" : ".UFIShareRow",
-  "add comment form" : ".UFIAddComment",
-  "date and privacy" : "._5pcp",
-  "Wall details column" : ".fbTimelineTwoColumn",
-  "left column on feed page" : ".home_right_column",
-  "left column on group page" : ".pagelet",
-  "side menu" : ".UFIAddComment",
+  "like and share actions" : [".commentable_item ._sa_",".UFICommentActions"],
+  "likes counter" : [".UFILikeSentence"],
+  "shares counter" : [".UFIShareRow"],
+  "add comment form" : [".UFIAddComment"],
+  "date and privacy" : ["._5pcp"],
+  "Wall details column" : [".fbTimelineTwoColumn"],
+  "left column " : [".home_right_column",".pagelet"],
+  "side menu" : [".UFIAddComment"],
 
 }, cssStr = '';
 
@@ -98,10 +97,10 @@ function setCssBySettings(){
   css = [];
   for(var ind of Object.keys(cssByElements)){
     if(settings[ind]){
-      css.push('body.reader-on ' + cssByElements[ind]);
+      css.push(cssByElements[ind].join(", body.reader-on "));
     }
   }
-  cssStr = css.join(',') + "{display:none!important;}"
+  cssStr = 'body.reader-on ' + css.join(', body.reader-on ') + "{display:none!important;}"
 }
 
 function injectToTab(tab, onClick){
@@ -111,7 +110,7 @@ function injectToTab(tab, onClick){
     if(tab.active && localStorage.getItem('usedAlready')){
         //ensure tab opend
       setTimeout(function(){
-        injectJsCurrentTab();
+       // injectJsCurrentTab();
       },700);
     }
     if(getReaderState()){
